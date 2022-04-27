@@ -44,3 +44,18 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443
 - Navigate to https://argocd.example.com:8080
 - Accept the SSL warning and continue
 - Login with Google
+
+# To test CURLing using the cookie
+- In the browser, look for the cookie value in the network inspector for a request to ArgoCD. e.g.
+```
+argocd.token=eyJhb...kFRxA
+```
+- Copy that to a file so you can refer back to it
+- Take the bit after `argocd.token=` and add it to an env var in your terminal
+```
+ARGO_TOKEN=<pasted token>
+```
+- Make a CURL like the following (`-k` to ignore cert issues)
+```
+curl -v -k --cookie "argocd.token=$ARGO_TOKEN" -X PUT https://argocd.example.com:8080/api/v1/projects/seed
+```
