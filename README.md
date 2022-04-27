@@ -33,6 +33,7 @@ data:
     requestedScopes: ["openid", "email"]
     requestedIDTokenClaims: {}
   url: https://argocd.example.com:8080
+  admin.enabled: "false"
 kind: ConfigMap
 metadata:
   LEAVE THIS UNCHANGED
